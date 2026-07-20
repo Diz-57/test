@@ -6,7 +6,7 @@ clone_folder: c:\stackless
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - git clone https://github.com/stackless-dev/stackman/.git
+  - git clone https://github.com/stackless-dev/stackman.git
   - cmd: dir stackless
   - cmd: dir stackless\stackless
 

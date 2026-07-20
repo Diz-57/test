@@ -20,11 +20,11 @@ install:
   - cmd: if "%TARGET_ARCH%"=="x64"  call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
   - cmd: if "%TARGET_ARCH%"=="Win32" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
 
-  - cmd: dir "C:\"
-
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
   - cmd: cd c:\stackless\PCbuild
+
+  - cmd: dir "C:\"
 
   # Use CPython's build.bat to build Stackless
   # -e = optimized build; -d = debug build

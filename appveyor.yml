@@ -1,14 +1,58 @@
+version: "{build}"
+
 image: Visual Studio 2019
 
+clone_folder: c:\stackless
+
+# Build matrix: architectures + build types
+environment:
+  matrix:
+    - TARGET_ARCH: x64
+      BUILD_MODE: Release
+    - TARGET_ARCH: x64
+      BUILD_MODE: Debug
+    - TARGET_ARCH: Win32
+      BUILD_MODE: Release
+    - TARGET_ARCH: Win32
+      BUILD_MODE: Debug
+
 install:
-  - choco install git nasm -y
-  - git --version
-  - nasm -v
+  # Load MSVC environment for the selected architecture
+  - cmd: >
+      if "%TARGET_ARCH%"=="x64" (
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+      ) else (
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat"
+      )
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - cd stackless
-  - cd PCbuild
-  - call build.bat -e
-  - cd ..
-  - PCbuild\python.exe -m test
+  - cmd: cd c:\stackless\PCbuild
+
+  # Build Stackless using CPython's build system
+  - cmd: >
+      build.bat -e -p %TARGET_ARCH% ^
+      %BUILD_MODE%
+
+test_script:
+  # Run CPython + Stackless tests only for Release x64
+  - cmd: >
+      if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" (
+        c:\stackless\PCbuild\amd64\python.exe -m test -q
+      )
+
+artifacts:
+  - path: PCbuild\*\*.exe
+    name: stackless-executables
+
+  - path: PCbuild\*\*.pyd
+    name: stackless-extension-modules
+
+  - path: PCbuild\*\*.dll
+    name: stackless-dlls
+
+  - path: PCbuild\*\*.zip
+    name: stackless-packages
+
+cache:
+  - C:\Users\appveyor\AppData\Local\pip\Cache

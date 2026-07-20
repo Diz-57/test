@@ -24,7 +24,7 @@ build_script:
   - git clone https://github.com/stackless-dev/stackless.git
 #  - cmd: cd c:\stackless\PCbuild
 
-  - cmd: dir "C:\"
+  - cmd: dir "C:\stackless"
 
   # Use CPython's build.bat to build Stackless
   # -e = optimized build; -d = debug build

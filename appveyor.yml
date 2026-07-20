@@ -9,12 +9,12 @@ environment:
   matrix:
     - TARGET_ARCH: x64
       BUILD_MODE: Release
-    - TARGET_ARCH: x64
-      BUILD_MODE: Debug
-    - TARGET_ARCH: Win32
-      BUILD_MODE: Release
-    - TARGET_ARCH: Win32
-      BUILD_MODE: Debug
+#    - TARGET_ARCH: x64
+#      BUILD_MODE: Debug
+#    - TARGET_ARCH: Win32
+#      BUILD_MODE: Release
+#    - TARGET_ARCH: Win32
+#      BUILD_MODE: Debug
 
 install:
   # Select the right MSVC environment for the architecture

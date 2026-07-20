@@ -32,7 +32,7 @@ build_script:
   - cmd: move "c:\stackless\stackman\stackman" "c:\stackless\stackless\stackman"
 #  - cmd: dir stackman
 #  - cmd: where stackman.h
-  - cmd: dir stackless\stackless
+  - cmd: dir stackless\stackman
 #  - cmd: dir stackman\stackman
 #  - cmd: dir c:\stackless\stackless\stackman
 

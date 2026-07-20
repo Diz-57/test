@@ -4,6 +4,8 @@ image: Visual Studio 2017
 
 clone_folder: c:\stackless
 
+- git clone https://github.com/stackless-dev/stackman.git
+
 before_build:
   - ps: |+
       if ($env:APPVEYOR_RE_BUILD) {

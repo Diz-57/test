@@ -2,7 +2,7 @@ version: "{build}"
 
 image: Visual Studio 2019
 
-clone_folder: c:\stackless
+clone_folder: c:\
 
 # Build matrix: architectures + build types
 environment:
@@ -22,8 +22,8 @@ install:
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: dir "C:\stackless\stackless"
-  - cmd: cd c:\stackless\stackless\PCbuild
+  - cmd: dir "C:\stackless"
+  - cmd: cd c:\stackless\PCbuild
 
   # Use CPython's build.bat to build Stackless
   # -e = optimized build; -d = debug build

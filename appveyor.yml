@@ -1,4 +1,4 @@
-version: "{build}"
+  version: "{build}"
 
 image: Visual Studio 2019
 
@@ -17,29 +17,22 @@ environment:
       BUILD_MODE: Debug
 
 install:
-  # Load MSVC environment for the selected architecture
-  - cmd: >
-      if "%TARGET_ARCH%"=="x64" (
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-      ) else (
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat"
-      )
+  # Select the right MSVC environment for the architecture
+  - cmd: if "%TARGET_ARCH%"=="x64"  call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if "%TARGET_ARCH%"=="Win32" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat"
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
   - cmd: cd c:\stackless\PCbuild
 
-  # Build Stackless using CPython's build system
-  - cmd: >
-      build.bat -e -p %TARGET_ARCH% ^
-      %BUILD_MODE%
+  # Use CPython's build.bat to build Stackless
+  # -e = optimized build; -d = debug build
+  - cmd: if "%BUILD_MODE%"=="Release" build.bat -e -p %TARGET_ARCH%
+  - cmd: if "%BUILD_MODE%"=="Debug"   build.bat -d -p %TARGET_ARCH%
 
 test_script:
-  # Run CPython + Stackless tests only for Release x64
-  - cmd: >
-      if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" (
-        c:\stackless\PCbuild\amd64\python.exe -m test -q
-      )
+  # Only run tests for the canonical build (x64 Release)
+  - cmd: if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" c:\stackless\PCbuild\amd64\python.exe -m test -q
 
 artifacts:
   - path: PCbuild\*\*.exe
@@ -56,3 +49,4 @@ artifacts:
 
 cache:
   - C:\Users\appveyor\AppData\Local\pip\Cache
+

@@ -23,9 +23,9 @@ before_build:
         }
       }
 
-- cmd: dir stackless
-
 build_script:
+  - cmd: dir stackless
+
   - cmd: stackless\PCbuild\build.bat -e -p x64
   - cmd: stackless\PCbuild\amd64\python.exe -m test.pythoninfo
 test_script:

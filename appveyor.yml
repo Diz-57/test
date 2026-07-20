@@ -4,9 +4,8 @@ image: Visual Studio 2017
 
 clone_folder: c:\stackless
 
-- git clone https://github.com/stackless-dev/stackman.git
-
 before_build:
+  - git clone https://github.com/stackless-dev/stackman.git
   - ps: |+
       if ($env:APPVEYOR_RE_BUILD) {
         echo 'Doing full build due to re-build request.'

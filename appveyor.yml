@@ -22,7 +22,7 @@ install:
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: cd c:\stackless\PCbuild
+#  - cmd: cd c:\stackless\PCbuild
 
   - cmd: dir "C:\"
 

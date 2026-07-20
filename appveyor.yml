@@ -31,5 +31,3 @@ test_script:
   - cmd: stackless\stackless\PCbuild\rt.bat -x64 -q -uall -u-cpu -u-largefile -rwW --slowest --timeout=1200 --fail-env-changed -j0
 environment:
   HOST_PYTHON: C:\Python36\python.exe
-image:
-  - Visual Studio 2017

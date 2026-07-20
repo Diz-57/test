@@ -2,7 +2,7 @@ version: "{build}"
 
 image: Visual Studio 2019
 
-clone_folder: c:\
+clone_folder: c:\stackless
 
 # Build matrix: architectures + build types
 environment:
@@ -22,8 +22,8 @@ install:
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: dir "C:\stackless"
-  - cmd: cd c:\stackless\PCbuild
+  - cmd: dir "C:\stackless\stackless"
+  - cmd: cd c:\stackless\stackless\PCbuild
 
   # Use CPython's build.bat to build Stackless
   # -e = optimized build; -d = debug build
@@ -32,7 +32,7 @@ build_script:
 
 test_script:
   # Only run tests for the canonical build (x64 Release)
-  - cmd: if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" c:\stackless\PCbuild\amd64\python.exe -m test -q
+  - cmd: if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" c:\stackless\stackless\PCbuild\amd64\python.exe -m test -q
 
 artifacts:
   - path: PCbuild\*\*.exe

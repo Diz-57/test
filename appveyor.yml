@@ -1,54 +1,35 @@
 version: "{build}"
 
-image: Visual Studio 2022
+image: Visual Studio 2017
 
 clone_folder: c:\stackless
 
-# Build matrix: architectures + build types
-environment:
-  matrix:
-    - TARGET_ARCH: x64
-      BUILD_MODE: Release
-#    - TARGET_ARCH: x64
-#      BUILD_MODE: Debug
-#    - TARGET_ARCH: Win32
-#      BUILD_MODE: Release
-#    - TARGET_ARCH: Win32
-#      BUILD_MODE: Debug
+before_build:
+  - ps: |+
+      if ($env:APPVEYOR_RE_BUILD) {
+        echo 'Doing full build due to re-build request.'
+      } elseif (!$env:APPVEYOR_PULL_REQUEST_HEAD_COMMIT) {
+        echo 'Not a PR, doing full build.'
+      } else {
+        git fetch -q origin +refs/heads/$env:APPVEYOR_REPO_BRANCH
+        $mergebase = git merge-base HEAD FETCH_HEAD
+        $changes = git diff --name-only HEAD $mergebase | grep -vE '(\.rst$)|(^Doc)|(^Misc)'
+        If (!$changes) {
+          echo 'Only docs were updated, stopping build process.'
+          Exit-AppveyorBuild
+        } else {
+          echo 'Doing full build due to non-doc changes in these files:'
+          echo $changes
+        }
+      }
 
-install:
-  - cmd: dir "C:\Program Files (x86)\Microsoft Visual Studio\2022"
-  - cmd: if "%TARGET_ARCH%"=="x64"  call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
-  - cmd: if "%TARGET_ARCH%"=="Win32" call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
 
 build_script:
-  - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: dir "C:\stackless\stackless"
-  - cmd: cd c:\stackless\stackless\PCbuild
-
-  # Use CPython's build.bat to build Stackless
-  # -e = optimized build; -d = debug build
-  - cmd: if "%BUILD_MODE%"=="Release" build.bat -e -p %TARGET_ARCH%
-  - cmd: if "%BUILD_MODE%"=="Debug"   build.bat -d -p %TARGET_ARCH%
-
+  - cmd: stackless\stackless\PCbuild\build.bat -e -p x64
+  - cmd: stackless\stackless\PCbuild\amd64\python.exe -m test.pythoninfo
 test_script:
-  # Only run tests for the canonical build (x64 Release)
-  - cmd: where python.exe
-  - cmd: if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" c:\stackless\stackless\PCbuild\amd64\python.exe -m test -q
-
-artifacts:
-  - path: PCbuild\*\*.exe
-    name: stackless-executables
-
-  - path: PCbuild\*\*.pyd
-    name: stackless-extension-modules
-
-  - path: PCbuild\*\*.dll
-    name: stackless-dlls
-
-  - path: PCbuild\*\*.zip
-    name: stackless-packages
-
-cache:
-  - C:\Users\appveyor\AppData\Local\pip\Cache
-
+  - cmd: stackless\stackless\PCbuild\rt.bat -x64 -q -uall -u-cpu -u-largefile -rwW --slowest --timeout=1200 --fail-env-changed -j0
+environment:
+  HOST_PYTHON: C:\Python36\python.exe
+image:
+  - Visual Studio 2017

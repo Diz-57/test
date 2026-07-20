@@ -25,7 +25,7 @@ before_build:
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
-  - git clone https://github.com/stackless-dev/stackman.git
+#  - git clone https://github.com/stackless-dev/stackman.git
 #  - cmd: dir
 #  - cmd: robocopy "c:\stackless\stackman" "c:\stackless\stackless\stackless\stackman" /E
 #  - cmd: move "c:\stackless\stackman\stackman" "c:\stackless\stackless\stackman"

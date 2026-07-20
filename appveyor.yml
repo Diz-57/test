@@ -27,8 +27,8 @@ build_script:
   - git clone https://github.com/stackless-dev/stackless.git
   - git clone https://github.com/stackless-dev/stackman.git
   - cmd: dir
+  - cmd: robocopy "c:\stackless\stackman" "c:\stackless\stackless\stackless\stackman" /E
   - cmd: dir stackless\stackless\stackman
-  - cmd: robocopy "c:\stackman" "c:\stackless\stackman" /E
 
   - cmd: stackless\PCbuild\build.bat -e -p x64
   - cmd: stackless\PCbuild\amd64\python.exe -m test.pythoninfo

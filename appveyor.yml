@@ -26,8 +26,7 @@ before_build:
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
   - git clone https://github.com/stackless-dev/stackman.git
-  - cmd: cd stackman
-  - cmd: xcopy * "c:\stackless\stackman" /S /E /I /Y
+  - cmd: robocopy "c:\stackman" "c:\stackless\stackman" /E
   - cmd: dir
   - cmd: dir stackless\stackless\stackman
 
@@ -37,3 +36,4 @@ test_script:
   - cmd: stackless\stackless\PCbuild\rt.bat -x64 -q -uall -u-cpu -u-largefile -rwW --slowest --timeout=1200 --fail-env-changed -j0
 environment:
   HOST_PYTHON: C:\Python36\python.exe
+robocopy "C:\data" "C:\data_backup" /E

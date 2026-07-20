@@ -25,7 +25,9 @@ before_build:
 
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
+  - git clone https://github.com/stackless-dev/stackman/tree/dbc72fe5207a2055e658c819fdeab9731dee78b9/stackman
   - cmd: dir stackless
+  - cmd: dir stackless\stackless
 
   - cmd: stackless\PCbuild\build.bat -e -p x64
   - cmd: stackless\PCbuild\amd64\python.exe -m test.pythoninfo

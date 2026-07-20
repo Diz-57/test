@@ -26,6 +26,7 @@ before_build:
 build_script:
   - git clone https://github.com/stackless-dev/stackless.git
   - git clone https://github.com/stackless-dev/stackman.git
+  - cmd: xcopy stackman\* "c:\stackless\stackman" /S /E /I /Y
   - cmd: dir
   - cmd: dir stackless\stackless\stackman
 

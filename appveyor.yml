@@ -17,7 +17,7 @@ environment:
 #      BUILD_MODE: Debug
 
 install:
-  - cmd: >
+  - cmd:
       for /f "tokens=*" %%i in (
         'vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath'
       ) do set VSROOT=%%i

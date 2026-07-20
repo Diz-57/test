@@ -32,6 +32,7 @@ build_script:
 
 test_script:
   # Only run tests for the canonical build (x64 Release)
+  - cmd: where python.exe
   - cmd: if "%TARGET_ARCH%"=="x64" if "%BUILD_MODE%"=="Release" c:\stackless\stackless\PCbuild\amd64\python.exe -m test -q
 
 artifacts:

@@ -6,9 +6,7 @@ clone_folder: c:\stackless
 
 before_build:
   - git clone https://github.com/stackless-dev/stackman.git
-  - cmd: md c:\stackless\stackless
-  - cmd: md c:\stackless\stackless\stackless
-  - cmd: md c:\stackless\stackless\stackless\stackman
+  - git clone https://github.com/stackless-dev/stackless.git
   - cmd: copy "c:\stackless\stackman\stackman\stackman.h" "c:\stackless\stackless\stackless\stackman"
   - cmd: dir c:\stackless\stackless\stackless\stackman
 #  - cmd: where /r c:\stackless stackman.h
@@ -32,7 +30,6 @@ before_build:
       }
 
 build_script:
-  - git clone https://github.com/stackless-dev/stackless.git
 #  - git clone https://github.com/stackless-dev/stackman.git
 #  - cmd: dir
 #  - cmd: robocopy "c:\stackless\stackman" "c:\stackless\stackless\stackless\stackman" /E

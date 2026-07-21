@@ -6,7 +6,7 @@ clone_folder: c:\stackless
 
 before_build:
   - git clone https://github.com/stackless-dev/stackman.git
-  - cmd: where stackman.h
+  - cmd: where /r stackman.h
   - ps: |+
       if ($env:APPVEYOR_RE_BUILD) {
         echo 'Doing full build due to re-build request.'

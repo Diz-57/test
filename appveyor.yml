@@ -29,10 +29,10 @@ build_script:
 #  - git clone https://github.com/stackless-dev/stackman.git
 #  - cmd: dir
 #  - cmd: robocopy "c:\stackless\stackman" "c:\stackless\stackless\stackless\stackman" /E
-  - cmd: move "c:\stackless\stackman\stackman" "c:\stackless\stackless\include"
+  - cmd: move "c:\stackless\stackman" "c:\stackless\stackless\stackman"
 #  - cmd: dir stackman
 #  - cmd: where stackman.h
-  - cmd: dir stackless\include
+  - cmd: dir stackless\stackman
 #  - cmd: dir stackman\stackman
 #  - cmd: dir c:\stackless\stackless\stackman
 

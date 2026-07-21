@@ -7,8 +7,8 @@ clone_folder: c:\stackless
 before_build:
   - git clone https://github.com/stackless-dev/stackman.git
   - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: copy "c:\stackless\stackman\stackman\stackman.h" "c:\stackless\stackless\stackless\stackman"
-  - cmd: dir c:\stackless\stackless\stackless\stackman
+  - cmd: copy "c:\stackless\stackman\stackman\stackman.h" "c:\stackless\stackless\stackman"
+  - cmd: dir c:\stackless\stackless\stackman
 #  - cmd: where /r c:\stackless stackman.h
 #  - cmd: where /r c:\stackless stackman.lib
   - ps: |+

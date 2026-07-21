@@ -7,7 +7,7 @@ clone_folder: c:\stackless
 before_build:
   - git clone https://github.com/stackless-dev/stackman.git
   - git clone https://github.com/stackless-dev/stackless.git
-  - cmd: move "c:\stackless\stackman\stackman" "c:\stackless\stackless\stackless\stackman"
+  - cmd: move "c:\stackless\stackman" "c:\stackless\stackless\stackman"
 #  - cmd: dir c:\stackless\stackless\include
 #  - cmd: where /r c:\stackless stackman.h
 #  - cmd: where /r c:\stackless stackman.lib
